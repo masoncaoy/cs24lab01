@@ -118,11 +118,16 @@ int IntList::count() const {
 //Assignment operator should copy the list from the source
 //to this list, deleting/replacing any existing nodes
 IntList& IntList::operator=(const IntList& source){
-    IntList temp(source);
-    head = temp.head;
-    tail = temp.tail;
+    if (this != &source) {
+        IntList temp(source);
+        Node* oldHead = head;
+        Node* oldTail = tail;
+        head = temp.head;
+        tail = temp.tail;
+        temp.head = oldHead;
+        temp.tail = oldTail;
+    }
     return *this;
-    
 }
 
 // constructor sets up empty list
